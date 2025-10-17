@@ -11,7 +11,7 @@
 DROP schema IF EXISTS norpac_commons cascade;
 CREATE schema norpac_commons AUTHORIZATION norpac;
 
-CREATE EXTENSION IF NOT EXISTS pldbgapi; -- Debugging
+-- CREATE EXTENSION IF NOT EXISTS pldbgapi; -- Debugging
 
 -- ----------------------------------------------------------------------------
 -- Public functions - Shared across all schemas

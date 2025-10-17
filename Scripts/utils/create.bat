@@ -1,69 +1,73 @@
-@echo off
-rem ----------------------------------------------------------------------------
-rem © 2025 Northern Pacific Technologies, LLC.
-rem 
-rem See LICENSE file in the project root for full license information.
-rem
-rem To capture all psql output use the following command:
-rem  tester.bat > tester.log 2>&1
-rem
-rem ---------------------------------------------------------------------------
+@ECHO OFF
+REM ----------------------------------------------------------------------------
+REM © 2025 Northern Pacific Technologies, LLC.
+REM 
+REM See LICENSE file in the project root for full license information.
+REM
+REM To capture all psql output use the following command:
+REM  tester.bat > tester.log 2>&1
+REM
+REM ---------------------------------------------------------------------------
 
-if not defined PGHOST (
-  set PGHOST=localhost
+IF NOT DEFINED PGHOST (
+  SET PGHOST=localhost
 )
 
-if not defined PGPORT (
-  set PGPORT=5432
+IF NOT DEFINED PGPORT (
+  SET PGPORT=5432
 )
+
+REM 1) norpac user must already exist in the database
+REM    ... CREATE ROLE norpac WITH SUPERUSER LOGIN PASSWORD 'CHANGEME';
+REM 2) norpac database must already exist in the database
+REM    ... CREATE DATABASE norpac OWNER norpac;
+
+SET PGUSER=norpac
+
 SET PGHOST=v02.norpactech.com
-SET PGUSER=norpac
-SET PGPASSWORD=Theslideisblue1!
+SET PGPASSWORD=CHANGEME!
 
-SET PGHOST=localhost
-SET PGUSER=norpac
-SET PGPASSWORD=password
+REM SET PGHOST=localhost
+REm PGPASSWORD=password
 
-echo Beginning Global Definitions
-rem goto start
-psql -d norpac -h %PGHOST% -p %PGPORT% -f ".\bootstrap.sql" || goto exception
+ECHO Beginning Global Definitions
+REM goto start
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f ".\bootstrap.sql" || goto exception
 
-echo Beginning PostgREST Users
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f ".\users.sql" || goto exception
-echo Completed PostgREST Users
+CD ..\ddl\table
+CALL create_table.bat || goto exception
+CD ..\..\utils
 
-cd ..\ddl\table
-call create_table.bat || goto exception
-cd ..\..\utils
+CD ..\ddl\validation
+CALL create_validation.bat || goto exception
+CD ..\..\utils
 
-cd ..\ddl\validation
-call create_validation.bat || goto exception
-cd ..\..\utils
+CD ..\ddl\insert
+CALL create_insert.bat || goto exception
+CD ..\..\utils
 
-cd ..\ddl\insert
-call create_insert.bat || goto exception
-cd ..\..\utils
+CD ..\ddl\update
+CALL create_update.bat || goto exception
+CD ..\..\utils
 
-cd ..\ddl\update
-call create_update.bat || goto exception
-cd ..\..\utils
+CD ..\ddl\delete
+CALL create_delete.bat || goto exception
+CD ..\..\utils
 
-cd ..\ddl\delete
-call create_delete.bat || goto exception
-cd ..\..\utils
-
-cd ..\ddl\active
-call create_active.bat || goto exception
-cd ..\..\utils
+CD ..\ddl\active
+CALL create_active.bat || goto exception
+CD ..\..\utils
 
 psql -d norpac -h %PGHOST% -p %PGPORT% -f ".\views.sql" || goto exception
 
-echo Create Completed Successfully
-exit /b 0
+REM See pareto-factory-db for user definitions
 
-rem ---------------------------------------------------------------------------
-rem Tests Failed! Stopping Execution
-rem ---------------------------------------------------------------------------
+ECHO Create Completed Successfully
+EXIT /b 0
+
+REM ---------------------------------------------------------------------------
+REM Exception! Stopping Execution
+REM ---------------------------------------------------------------------------
 :exception
-echo Create Failed!
-exit /b 1
+ECHO Create Failed!
+EXIT /b 1
