@@ -1,0 +1,9 @@
+My business is "Northern Pacific Technologies" otherwise known as norpac. My clients business is called Canology. I write software while Canology sends trucks to residential and business locations to clean trash cans, recycle can, yard cans, dumpsters, and pads (to be pressure washed by the trucks). 
+
+Canology has a ONE-TIME and Subscription model to where customers order service and trucks will be sent on a one-time, monthly, bimonthly, quarterly, semiannually, and annual basis. I would like to extend the model to also support any schedule like hourly, daily or weekly service. Similar to booking an appointment in ms outlook.
+
+I will eventually need to develop a scheduler to support these schedules. for now, however, let's focus on products and pricing. 
+
+Current pricing is based on single products and subscriptions. Billing cycles coincide with subscriptions / product service. The current system will create an invoice and charge a customer through a payment processor (credit card) about 1 week prior to service. 
+
+Review the following data model and suggest enhancements that support the above requirements. Suggest any suspected missing requirements.

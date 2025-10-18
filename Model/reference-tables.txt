@@ -1,0 +1,72 @@
+rt_type
+  PRODUCT_TYPE
+  rt_values
+    SERVICE
+    BUNDLE
+    ADDON
+    PHYSICAL
+rt_type
+  PRODUCT_STATUS
+  rt_values
+  DRAFT
+  ACTIVE
+  RETIRED
+rt_type
+  BILLING_FREQUENCY
+  rt_values
+  POINT-OF-SALE
+  MONTHLY
+  BIMONTHLY
+  QUARTERLY
+  SEMIANNUALLY
+  ANNUALLY
+rt_type
+  PRICING_TYPE
+  rt_values
+    FIXED
+    TIERED
+    DISCOUNT
+    SUBSCRIPTION
+rt_type
+  BILLING_PERIOD
+  rt_values
+    POINT-OF-SALE
+    MONTHLY
+    BIMONTHLY
+    QUARTERLY
+    SEMIANNUALLY
+    ANNUALLY
+rt_type
+  BUNDLE_STRATEGY
+  rt_values
+  FIXED_PRICE
+  COMPONENT_SUM
+  DISCOUNTED_SUM
+rt_origin
+  rt_values
+    PARETO_FACTORY
+    SQUAWKLINE
+    UNITED_BINS
+    NORPAC-WEB
+rt_type
+  CURRENCY_CODE
+  rt_values
+    USD
+rt_type
+  RENEWAL_POLICY
+  rt_values
+  AUTO
+  MANUAL
+  EXPIRE
+rt_type
+  PRODUCT_CATEGORY
+  rt_values
+  DUMPSTER
+  RESIDENTIAL_CAN
+
+
+  
+
+
+    
+    
