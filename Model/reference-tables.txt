@@ -63,6 +63,14 @@ rt_type
   rt_values
   DUMPSTER
   RESIDENTIAL_CAN
+rt_type
+  SERVICE_STATUS
+  rt_values
+  PENDING
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  REFUNDED
 
 
   

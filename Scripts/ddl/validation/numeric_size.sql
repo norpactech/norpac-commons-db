@@ -1,0 +1,36 @@
+-- --------------------------------------------------------------------------------------
+-- Validate numeric_size - Small, Medium, Large
+-- --------------------------------------------------------------------------------------
+DROP FUNCTION IF EXISTS norpac_commons.is_numeric_size;
+CREATE FUNCTION norpac_commons.is_numeric_size(
+  IN in_attribute TEXT,
+  IN in_value     TEXT
+) 
+RETURNS norpac_commons.pg_val
+AS $$
+DECLARE
+
+  v_result pareto.pg_val;
+
+BEGIN
+  
+  -- -------------------------------------------
+  -- Null validations are checked elsewhere
+  -- -------------------------------------------
+  IF (in_value IS NULL) THEN
+    v_result := (TRUE, in_attribute, NULL);
+    return v_result;
+  END IF;
+
+  IF (LOWER(in_value) IN ('small', 'medium', 'large')) THEN
+    v_result := (TRUE, in_attribute, NULL);
+  ELSE
+    v_result := (FALSE, in_attribute, 'Only Small, Medium, and Large is Valid');
+  END IF;
+
+  RETURN v_result;
+
+END;
+$$ LANGUAGE plpgsql;
+
+

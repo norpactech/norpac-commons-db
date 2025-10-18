@@ -27,8 +27,8 @@ SET PGUSER=norpac
 SET PGHOST=v02.norpactech.com
 SET PGPASSWORD=CHANGEME!
 
-REM SET PGHOST=localhost
-REm PGPASSWORD=password
+SET PGHOST=localhost
+SET PGPASSWORD=password
 
 ECHO Beginning Global Definitions
 REM goto start

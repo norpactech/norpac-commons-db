@@ -1,0 +1,36 @@
+-- --------------------------------------------------------------------------------------
+-- Validate package - Package Structure (i.e. com.norpactech.pareto)
+-- --------------------------------------------------------------------------------------
+DROP FUNCTION IF EXISTS norpac_commons.is_package;
+CREATE FUNCTION norpac_commons.is_package(
+  IN in_attribute TEXT,
+  IN in_value     TEXT
+) 
+RETURNS norpac_commons.pg_val
+AS $$
+DECLARE
+
+  v_result pareto.pg_val;
+
+BEGIN
+  
+  -- -------------------------------------------
+  -- Null validations are checked elsewhere
+  -- -------------------------------------------
+  IF (in_value IS NULL) THEN
+    v_result := (TRUE, in_attribute, NULL);
+    return v_result;
+  END IF;
+
+  IF (in_value ~ '^[a-z0-9]+(\.[a-z0-9]+)*$') THEN
+    v_result := (TRUE, in_attribute, NULL);
+  ELSE
+    v_result := (FALSE, in_attribute, 'Only [lower-case, number, and .] are valid');
+  END IF;
+
+  RETURN v_result;
+
+END;
+$$ LANGUAGE plpgsql;
+
+
