@@ -24,6 +24,12 @@ ALTER TABLE norpac_commons.schedule_rule ADD PRIMARY KEY (id);
 
 
 ALTER TABLE norpac_commons.schedule_rule
+  ADD CONSTRAINT schedule_rule_id_tenant
+  FOREIGN KEY (id_tenant)
+  REFERENCES norpac_commons.tenant(id)
+  ON DELETE CASCADE;
+    
+ALTER TABLE norpac_commons.schedule_rule
   ADD CONSTRAINT schedule_rule_id_product
   FOREIGN KEY (id_product)
   REFERENCES norpac_commons.product(id)

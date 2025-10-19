@@ -7,7 +7,7 @@ CREATE TABLE norpac_commons.bundle (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_tenant                        UUID             NOT NULL, 
   id_rt_bundle_strategy            UUID             NOT NULL, 
-  discount_percent                 DECIMAL(5, 2)    NULL        DEFAULT 0.00, 
+  discount_percent                 DECIMAL(5, 2)    NULL, 
   metadata                         JSON             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
@@ -18,6 +18,14 @@ CREATE TABLE norpac_commons.bundle (
 
 ALTER TABLE norpac_commons.bundle ADD PRIMARY KEY (id);
 
+CREATE UNIQUE INDEX bundle_alt_key
+    ON norpac_commons.bundle(id_rt_bundle_strategy, id_tenant);
+
+ALTER TABLE norpac_commons.bundle
+  ADD CONSTRAINT bundle_id_tenant
+  FOREIGN KEY (id_tenant)
+  REFERENCES norpac_commons.tenant(id)
+  ON DELETE CASCADE;
 
 CREATE TRIGGER update_at
   BEFORE UPDATE ON norpac_commons.bundle 

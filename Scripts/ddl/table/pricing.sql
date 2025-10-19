@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS norpac_commons.pricing CASCADE;
 
 CREATE TABLE norpac_commons.pricing (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
-  id_service_product               UUID             NOT NULL, 
+  id_product                       UUID             NOT NULL, 
   id_rt_pricing_type               UUID             NOT NULL, 
   id_rt_billing_period             UUID             NOT NULL, 
   id_rt_currency_code              UUID             NOT NULL, 
@@ -24,8 +24,8 @@ ALTER TABLE norpac_commons.pricing ADD PRIMARY KEY (id);
 
 
 ALTER TABLE norpac_commons.pricing
-  ADD CONSTRAINT pricing_id_service_product
-  FOREIGN KEY (id_service_product)
+  ADD CONSTRAINT pricing_id_product
+  FOREIGN KEY (id_product)
   REFERENCES norpac_commons.product(id)
   ON DELETE CASCADE;
 

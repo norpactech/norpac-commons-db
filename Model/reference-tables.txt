@@ -71,7 +71,17 @@ rt_type
   COMPLETED
   CANCELLED
   REFUNDED
-
+rt_type
+  COUPON_TYPE
+  rt_values
+  FLAT
+  PERCENTAGE
+rt_type
+  PREFERRED_CONTACT
+  rt_values
+  EMAIL
+  PHONE
+  TEXT
 
   
 

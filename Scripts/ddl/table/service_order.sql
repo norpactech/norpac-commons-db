@@ -27,6 +27,12 @@ ALTER TABLE norpac_commons.service_order ADD PRIMARY KEY (id);
 
 
 ALTER TABLE norpac_commons.service_order
+  ADD CONSTRAINT service_order_id_tenant
+  FOREIGN KEY (id_tenant)
+  REFERENCES norpac_commons.tenant(id)
+  ON DELETE CASCADE;
+    
+ALTER TABLE norpac_commons.service_order
   ADD CONSTRAINT service_order_id_product
   FOREIGN KEY (id_product)
   REFERENCES norpac_commons.product(id)
