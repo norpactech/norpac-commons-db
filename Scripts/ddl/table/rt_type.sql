@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS norpac_commons.rt_type CASCADE;
 
 CREATE TABLE norpac_commons.rt_type (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
+  id_tenant                        UUID             NOT NULL, 
   name                             VARCHAR(64)      NOT NULL    CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
   description                      TEXT             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -17,10 +18,20 @@ CREATE TABLE norpac_commons.rt_type (
 ALTER TABLE norpac_commons.rt_type ADD PRIMARY KEY (id);
 
 CREATE UNIQUE INDEX rt_type_alt_key
-    ON norpac_commons.rt_type(LOWER(name));
+    ON norpac_commons.rt_type(id_tenant, LOWER(name));
+
+ALTER TABLE norpac_commons.rt_type
+  ADD CONSTRAINT rt_type_id_tenant
+  FOREIGN KEY (id_tenant)
+  REFERENCES norpac_commons.tenant(id)
+  ON DELETE CASCADE;
 
 CREATE TRIGGER update_at
   BEFORE UPDATE ON norpac_commons.rt_type 
     FOR EACH ROW
       EXECUTE FUNCTION update_at();
 
+ALTER TABLE norpac_commons.rt_type ENABLE ROW LEVEL SECURITY;
+CREATE POLICY tenant_isolation_policy ON norpac_commons.rt_type
+  FOR ALL TO web_update
+    USING (id_tenant = current_setting('app.current_tenant')::uuid);

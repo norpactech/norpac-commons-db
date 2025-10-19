@@ -22,7 +22,6 @@ echo Beginning Create Active Functions
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "bundle.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "bundle_item.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "coupon.sql" || goto exception  
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "coupon_product.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "coupon_usage.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "customer.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "feature.sql" || goto exception  

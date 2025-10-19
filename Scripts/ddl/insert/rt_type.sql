@@ -4,6 +4,7 @@
 
 DROP FUNCTION IF EXISTS norpac_commons.i_rt_type;
 CREATE FUNCTION norpac_commons.i_rt_type(
+  IN p_id_tenant UUID, 
   IN p_name VARCHAR, 
   IN p_description TEXT, 
   IN p_created_by VARCHAR
@@ -30,6 +31,7 @@ BEGIN
   -- ------------------------------------------------------
 
   v_metadata := jsonb_build_object(
+    'id_tenant', p_id_tenant, 
     'name', p_name, 
     'description', p_description, 
     'created_by', p_created_by
@@ -63,12 +65,14 @@ BEGIN
   -- ------------------------------------------------------
  
   INSERT INTO norpac_commons.rt_type (
+    id_tenant, 
     name, 
     description, 
     created_by,
     updated_by
   )
   VALUES (
+    p_id_tenant, 
     p_name, 
     p_description, 
     p_created_by,

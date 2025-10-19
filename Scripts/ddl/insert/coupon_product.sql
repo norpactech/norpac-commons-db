@@ -4,8 +4,8 @@
 
 DROP FUNCTION IF EXISTS norpac_commons.i_coupon_product;
 CREATE FUNCTION norpac_commons.i_coupon_product(
-  IN p_id_coupon UUID, 
-  IN p_id_product UUID
+  IN p_id_product UUID, 
+  IN p_id_coupon UUID
 )
 RETURNS norpac_commons.pg_resp
 AS $$
@@ -29,8 +29,8 @@ BEGIN
   -- ------------------------------------------------------
 
   v_metadata := jsonb_build_object(
-    'id_coupon', p_id_coupon, 
-    'id_product', p_id_product
+    'id_product', p_id_product, 
+    'id_coupon', p_id_coupon
   );
   
   -- ------------------------------------------------------
@@ -38,12 +38,12 @@ BEGIN
   -- ------------------------------------------------------
  
   INSERT INTO norpac_commons.coupon_product (
-    id_coupon, 
-    id_product
+    id_product, 
+    id_coupon
   )
   VALUES (
-    p_id_coupon, 
-    p_id_product
+    p_id_product, 
+    p_id_coupon
   )
   RETURNING id_coupon, id_product INTO v_id_coupon, v_id_product;
 

@@ -4,7 +4,6 @@
 
 DROP FUNCTION IF EXISTS norpac_commons.i_tenant;
 CREATE FUNCTION norpac_commons.i_tenant(
-  IN p_id_rt_origin UUID, 
   IN p_name VARCHAR, 
   IN p_created_by VARCHAR
 )
@@ -30,7 +29,6 @@ BEGIN
   -- ------------------------------------------------------
 
   v_metadata := jsonb_build_object(
-    'id_rt_origin', p_id_rt_origin, 
     'name', p_name, 
     'created_by', p_created_by
   );
@@ -63,13 +61,11 @@ BEGIN
   -- ------------------------------------------------------
  
   INSERT INTO norpac_commons.tenant (
-    id_rt_origin, 
     name, 
     created_by,
     updated_by
   )
   VALUES (
-    p_id_rt_origin, 
     p_name, 
     p_created_by,
     p_created_by

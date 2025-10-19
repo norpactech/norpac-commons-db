@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS norpac_commons.tenant CASCADE;
 
 CREATE TABLE norpac_commons.tenant (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
-  id_rt_origin                     UUID             NOT NULL, 
   name                             VARCHAR(64)      NOT NULL    CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
@@ -17,13 +16,7 @@ CREATE TABLE norpac_commons.tenant (
 ALTER TABLE norpac_commons.tenant ADD PRIMARY KEY (id);
 
 CREATE UNIQUE INDEX tenant_alt_key
-    ON norpac_commons.tenant(LOWER(name), id_rt_origin);
-
-ALTER TABLE norpac_commons.tenant
-  ADD CONSTRAINT tenant_id_rt_origin
-  FOREIGN KEY (id_rt_origin)
-  REFERENCES norpac_commons.rt_type(id)
-  ON DELETE CASCADE;
+    ON norpac_commons.tenant(LOWER(name));
 
 CREATE TRIGGER update_at
   BEFORE UPDATE ON norpac_commons.tenant 
