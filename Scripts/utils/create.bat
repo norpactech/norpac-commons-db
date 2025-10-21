@@ -60,7 +60,9 @@ CD ..\..\utils
 
 psql -d norpac -h %PGHOST% -p %PGPORT% -f ".\views.sql" || goto exception
 
-REM See pareto-factory-db for user definitions
+REM Note: Order is important! After the tables are created, define the users that
+REM will actually access the database. 
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f ".\users.sql" || goto exception
 
 ECHO Create Completed Successfully
 EXIT /b 0

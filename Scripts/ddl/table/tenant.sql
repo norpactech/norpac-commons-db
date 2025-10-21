@@ -6,6 +6,11 @@ DROP TABLE IF EXISTS norpac_commons.tenant CASCADE;
 CREATE TABLE norpac_commons.tenant (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   name                             VARCHAR(64)      NOT NULL    CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
+  description                      TEXT             NULL, 
+  origin                           VARCHAR(64)      NOT NULL, 
+  origin_name                      VARCHAR(64)      NULL, 
+  alias                            VARCHAR(64)      NOT NULL, 
+  time_zone                        VARCHAR(64)      NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -16,7 +21,10 @@ CREATE TABLE norpac_commons.tenant (
 ALTER TABLE norpac_commons.tenant ADD PRIMARY KEY (id);
 
 CREATE UNIQUE INDEX tenant_alt_key
-    ON norpac_commons.tenant(LOWER(name));
+    ON norpac_commons.tenant(LOWER(name), LOWER(origin));
+    
+CREATE UNIQUE INDEX tenant_tenant_idx01
+    ON norpac_commons.tenant(LOWER(alias), LOWER(origin));
 
 CREATE TRIGGER update_at
   BEFORE UPDATE ON norpac_commons.tenant 

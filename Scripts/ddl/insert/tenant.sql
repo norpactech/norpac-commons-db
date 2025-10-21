@@ -5,6 +5,11 @@
 DROP FUNCTION IF EXISTS norpac_commons.i_tenant;
 CREATE FUNCTION norpac_commons.i_tenant(
   IN p_name VARCHAR, 
+  IN p_description TEXT, 
+  IN p_origin VARCHAR, 
+  IN p_origin_name VARCHAR, 
+  IN p_alias VARCHAR, 
+  IN p_time_zone VARCHAR, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp
@@ -30,6 +35,11 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'name', p_name, 
+    'description', p_description, 
+    'origin', p_origin, 
+    'origin_name', p_origin_name, 
+    'alias', p_alias, 
+    'time_zone', p_time_zone, 
     'created_by', p_created_by
   );
   
@@ -62,11 +72,21 @@ BEGIN
  
   INSERT INTO norpac_commons.tenant (
     name, 
+    description, 
+    origin, 
+    origin_name, 
+    alias, 
+    time_zone, 
     created_by,
     updated_by
   )
   VALUES (
     p_name, 
+    p_description, 
+    p_origin, 
+    p_origin_name, 
+    p_alias, 
+    p_time_zone, 
     p_created_by,
     p_created_by
   )
