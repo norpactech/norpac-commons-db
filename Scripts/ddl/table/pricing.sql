@@ -10,6 +10,8 @@ CREATE TABLE norpac_commons.pricing (
   id_rt_billing_period             UUID             NOT NULL, 
   id_rt_currency_code              UUID             NOT NULL, 
   amount                           DECIMAL(10, 2)   NOT NULL, 
+  rate_per_unit                    DECIMAL(10, 2)   NULL, 
+  minimum_charge                   DECIMAL(10, 2)   NULL, 
   valid_from                       TIMESTAMP        NOT NULL, 
   valid_to                         TIMESTAMP        NULL, 
   metadata                         JSON             NULL, 

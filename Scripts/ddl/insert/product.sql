@@ -11,7 +11,7 @@ CREATE FUNCTION norpac_commons.i_product(
   IN p_name VARCHAR, 
   IN p_code VARCHAR, 
   IN p_description TEXT, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp
