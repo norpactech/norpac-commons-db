@@ -55,7 +55,7 @@ rt_origin
     PARETO_FACTORY
     SQUAWKLINE
     UNITED_BINS
-    NORPAC-WEB
+    NORPAC_WEB
 rt_type
   CURRENCY_CODE
   rt_values
