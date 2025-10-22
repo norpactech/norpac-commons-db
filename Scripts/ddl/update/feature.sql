@@ -7,7 +7,7 @@ CREATE FUNCTION norpac_commons.u_feature(
   IN p_name VARCHAR, 
   IN p_description TEXT, 
   IN p_is_addon BOOLEAN, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
 )

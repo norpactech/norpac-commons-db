@@ -1,8 +1,8 @@
 -- -------------------------------------------------------
--- Deactivate product_service_details (Soft Delete)
+-- Deactivate product_category (Soft Delete)
 -- ------------------------------------------------------
-DROP FUNCTION IF EXISTS norpac_commons.deact_product_service_details;
-CREATE FUNCTION norpac_commons.deact_product_service_details (
+DROP FUNCTION IF EXISTS norpac_commons.deact_product_category;
+CREATE FUNCTION norpac_commons.deact_product_category (
   IN p_id UUID, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
@@ -11,7 +11,7 @@ RETURNS norpac_commons.pg_resp
 AS $$
 DECLARE
 
-  c_service_name TEXT := 'deact_product_service_details';
+  c_service_name TEXT := 'deact_product_category';
 
   v_metadata     JSONB := '{}'::JSONB;
   v_response     norpac_commons.pg_resp;
@@ -36,10 +36,10 @@ BEGIN
   );
   
   -- ------------------------------------------------------
-  -- Deactivate product_service_details
+  -- Deactivate product_category
   -- ------------------------------------------------------
 
- UPDATE norpac_commons.product_service_details
+ UPDATE norpac_commons.product_category
     SET is_active = false 
     WHERE id = v_id
       AND DATE_TRUNC('second', updated_at) = DATE_TRUNC('second', p_updated_at)
@@ -61,7 +61,7 @@ BEGIN
   ELSE
     -- Check for Optimistic Lock Error
     SELECT count(*) INTO v_count   
-      FROM norpac_commons.product_service_details 
+      FROM norpac_commons.product_category 
     WHERE id = v_id;
           
     IF (v_count > 0) THEN
@@ -118,10 +118,10 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- -------------------------------------------------------
--- Reactivate product_service_details (Soft Undelete)
+-- Reactivate product_category (Soft Undelete)
 -- ------------------------------------------------------
-DROP FUNCTION IF EXISTS norpac_commons.react_product_service_details;
-CREATE FUNCTION norpac_commons.react_product_service_details (
+DROP FUNCTION IF EXISTS norpac_commons.react_product_category;
+CREATE FUNCTION norpac_commons.react_product_category (
   IN p_id UUID, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
@@ -130,7 +130,7 @@ RETURNS norpac_commons.pg_resp
 AS $$
 DECLARE
 
-  c_service_name TEXT := 'react_product_service_details';
+  c_service_name TEXT := 'react_product_category';
 
   v_metadata     JSONB := '{}'::JSONB;
   v_response     norpac_commons.pg_resp;
@@ -155,10 +155,10 @@ BEGIN
   );
   
   -- ------------------------------------------------------
-  -- Deactivate product_service_details
+  -- Deactivate product_category
   -- ------------------------------------------------------
 
- UPDATE norpac_commons.product_service_details
+ UPDATE norpac_commons.product_category
     SET is_active = TRUE 
     WHERE id = v_id
       AND DATE_TRUNC('second', updated_at) = DATE_TRUNC('second', p_updated_at)
@@ -180,7 +180,7 @@ BEGIN
   ELSE
     -- Check for Optimistic Lock Error
     SELECT count(*) INTO v_count   
-      FROM norpac_commons.product_service_details 
+      FROM norpac_commons.product_category 
     WHERE id = v_id;
           
     IF (v_count > 0) THEN

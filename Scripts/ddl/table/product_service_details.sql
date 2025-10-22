@@ -4,12 +4,12 @@
 DROP TABLE IF EXISTS norpac_commons.product_service_details CASCADE;
 
 CREATE TABLE norpac_commons.product_service_details (
+  id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_product                       UUID             NOT NULL, 
-  estimated_duration_minutes       INTEGER          NULL, 
-  requires_pressure_wash           BOOLEAN          NULL        DEFAULT FALSE, 
+  estimated_duration_minutes       INTEGER          NOT NULL, 
+  requires_pressure_wash           BOOLEAN          NOT NULL, 
   equipment_type                   VARCHAR(64)      NULL, 
-  base_distance_km                 DECIMAL(6, 2)    NULL, 
-  metadata                         JSON             NULL, 
+  metadata                         TEXT             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -17,7 +17,8 @@ CREATE TABLE norpac_commons.product_service_details (
   is_active                        BOOLEAN          NOT NULL    DEFAULT TRUE
 );
 
-ALTER TABLE norpac_commons.product_service_details ADD PRIMARY KEY (id_product);
+ALTER TABLE norpac_commons.product_service_details ADD PRIMARY KEY (id);
+
 
 ALTER TABLE norpac_commons.product_service_details
   ADD CONSTRAINT product_service_details_id_product

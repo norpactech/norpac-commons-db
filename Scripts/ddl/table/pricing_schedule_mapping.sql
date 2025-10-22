@@ -7,7 +7,7 @@ CREATE TABLE norpac_commons.pricing_schedule_mapping (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_pricing                       UUID             NOT NULL, 
   id_schedule_rule                 UUID             NOT NULL, 
-  effective_date                   TIMESTAMP        NOT NULL, 
+  effective_date                   DATE             NOT NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 

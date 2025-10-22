@@ -8,8 +8,7 @@ CREATE FUNCTION norpac_commons.i_product_service_details(
   IN p_estimated_duration_minutes INTEGER, 
   IN p_requires_pressure_wash BOOLEAN, 
   IN p_equipment_type VARCHAR, 
-  IN p_base_distance_km DECIMAL, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp
@@ -25,7 +24,7 @@ DECLARE
   v_updated_at   TIMESTAMP;
   
   -- Primary Key Field(s)
-  v_id_product uuid := NULL;
+  v_id uuid := NULL;
 
 BEGIN
 
@@ -38,7 +37,6 @@ BEGIN
     'estimated_duration_minutes', p_estimated_duration_minutes, 
     'requires_pressure_wash', p_requires_pressure_wash, 
     'equipment_type', p_equipment_type, 
-    'base_distance_km', p_base_distance_km, 
     'metadata', p_metadata, 
     'created_by', p_created_by
   );
@@ -52,7 +50,6 @@ BEGIN
     estimated_duration_minutes, 
     requires_pressure_wash, 
     equipment_type, 
-    base_distance_km, 
     metadata, 
     created_by,
     updated_by
@@ -62,16 +59,15 @@ BEGIN
     p_estimated_duration_minutes, 
     p_requires_pressure_wash, 
     p_equipment_type, 
-    p_base_distance_km, 
     p_metadata, 
     p_created_by,
     p_created_by
   )
-  RETURNING id_product, updated_at INTO v_id_product, v_updated_at;
+  RETURNING id, updated_at INTO v_id, v_updated_at;
 
   v_response := (
     'OK',
-    jsonb_build_object('id_product', v_id_product, 'updated_at', v_updated_at), 
+    jsonb_build_object('id', v_id, 'updated_at', v_updated_at), 
     NULL, 
     '00000',
     'Insert was successful', 

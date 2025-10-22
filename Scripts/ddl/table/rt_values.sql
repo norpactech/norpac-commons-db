@@ -20,9 +20,6 @@ CREATE TABLE norpac_commons.rt_values (
 
 ALTER TABLE norpac_commons.rt_values ADD PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX rt_values_alt_key
-    ON norpac_commons.rt_values(id_tenant, id_rt_type, LOWER(name));
-    
 CREATE UNIQUE INDEX rt_values_rt_values_idx01
     ON norpac_commons.rt_values(LOWER(name), id_tenant);
 

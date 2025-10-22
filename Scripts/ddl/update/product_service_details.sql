@@ -3,11 +3,12 @@
 -- ---------------------------------------------------------------------------------------
 DROP FUNCTION IF EXISTS norpac_commons.u_product_service_details;
 CREATE FUNCTION norpac_commons.u_product_service_details(
+  IN p_id UUID, 
+  IN p_id_product UUID, 
   IN p_estimated_duration_minutes INTEGER, 
   IN p_requires_pressure_wash BOOLEAN, 
   IN p_equipment_type VARCHAR, 
-  IN p_base_distance_km DECIMAL, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
 )
@@ -28,7 +29,7 @@ DECLARE
   v_updated_at   TIMESTAMP := p_updated_at;
   
   -- Primary Key Field(s)
-  v_id_product uuid := p_id_product;
+  v_id uuid := p_id;
   
 BEGIN
 
@@ -37,10 +38,11 @@ BEGIN
   -- ------------------------------------------------------
 
   v_metadata := jsonb_build_object(
+    'id', p_id, 
+    'id_product', p_id_product, 
     'estimated_duration_minutes', p_estimated_duration_minutes, 
     'requires_pressure_wash', p_requires_pressure_wash, 
     'equipment_type', p_equipment_type, 
-    'base_distance_km', p_base_distance_km, 
     'metadata', p_metadata, 
     'updated_at', p_updated_at, 
     'updated_by', p_updated_by
@@ -51,16 +53,16 @@ BEGIN
   -- ------------------------------------------------------
 
   UPDATE norpac_commons.product_service_details SET
+    id_product = p_id_product, 
     estimated_duration_minutes = p_estimated_duration_minutes, 
     requires_pressure_wash = p_requires_pressure_wash, 
     equipment_type = p_equipment_type, 
-    base_distance_km = p_base_distance_km, 
     metadata = p_metadata, 
     updated_by = p_updated_by, 
     updated_at = CURRENT_TIMESTAMP
-    WHERE id_product = p_id_product
+    WHERE id = p_id
       AND DATE_TRUNC('second', updated_at) = DATE_TRUNC('second', p_updated_at)
-    RETURNING id_product, updated_at INTO v_id_product, v_updated_at;
+    RETURNING id, updated_at INTO v_id, v_updated_at;
   
   GET DIAGNOSTICS v_updates = ROW_COUNT;
 
@@ -68,7 +70,7 @@ BEGIN
     -- Record was updated
     v_response := (
       'OK', 
-      jsonb_build_object('id_product', v_id_product, 'updated_at', v_updated_at), 
+      jsonb_build_object('id', v_id, 'updated_at', v_updated_at), 
       NULL, 
       '00000',
       'Update was successful', 
@@ -79,7 +81,7 @@ BEGIN
     -- Check for Optimistic Lock Error
     SELECT count(*) INTO v_count   
       FROM norpac_commons.product_service_details 
-    WHERE id_product = v_id_product;
+    WHERE id = v_id;
           
     IF (v_count > 0) THEN
       -- Record does exists but the updated_at timestamp has changed

@@ -6,7 +6,7 @@ DROP FUNCTION IF EXISTS norpac_commons.i_pricing_schedule_mapping;
 CREATE FUNCTION norpac_commons.i_pricing_schedule_mapping(
   IN p_id_pricing UUID, 
   IN p_id_schedule_rule UUID, 
-  IN p_effective_date TIMESTAMP, 
+  IN p_effective_date DATE, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp

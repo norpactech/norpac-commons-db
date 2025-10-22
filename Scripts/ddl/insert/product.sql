@@ -5,9 +5,9 @@
 DROP FUNCTION IF EXISTS norpac_commons.i_product;
 CREATE FUNCTION norpac_commons.i_product(
   IN p_id_tenant UUID, 
+  IN p_id_product_category UUID, 
   IN p_id_rt_product_type UUID, 
   IN p_id_rt_product_status UUID, 
-  IN p_id_rt_product_category UUID, 
   IN p_name VARCHAR, 
   IN p_code VARCHAR, 
   IN p_description TEXT, 
@@ -37,9 +37,9 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'id_tenant', p_id_tenant, 
+    'id_product_category', p_id_product_category, 
     'id_rt_product_type', p_id_rt_product_type, 
     'id_rt_product_status', p_id_rt_product_status, 
-    'id_rt_product_category', p_id_rt_product_category, 
     'name', p_name, 
     'code', p_code, 
     'description', p_description, 
@@ -76,9 +76,9 @@ BEGIN
  
   INSERT INTO norpac_commons.product (
     id_tenant, 
+    id_product_category, 
     id_rt_product_type, 
     id_rt_product_status, 
-    id_rt_product_category, 
     name, 
     code, 
     description, 
@@ -88,9 +88,9 @@ BEGIN
   )
   VALUES (
     p_id_tenant, 
+    p_id_product_category, 
     p_id_rt_product_type, 
     p_id_rt_product_status, 
-    p_id_rt_product_category, 
     p_name, 
     p_code, 
     p_description, 

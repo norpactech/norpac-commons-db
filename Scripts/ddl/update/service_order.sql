@@ -5,15 +5,13 @@ DROP FUNCTION IF EXISTS norpac_commons.u_service_order;
 CREATE FUNCTION norpac_commons.u_service_order(
   IN p_id UUID, 
   IN p_id_customer UUID, 
+  IN p_id_invoice UUID, 
   IN p_id_product UUID, 
   IN p_id_subscription_plan UUID, 
   IN p_id_schedule_rule UUID, 
   IN p_id_rt_service_status UUID, 
-  IN p_quantity INTEGER, 
-  IN p_service_date TIMESTAMP, 
-  IN p_price_at_order DECIMAL, 
-  IN p_invoice_id UUID, 
-  IN p_metadata JSON, 
+  IN p_service_date DATE, 
+  IN p_metadata TEXT, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
 )
@@ -45,14 +43,12 @@ BEGIN
   v_metadata := jsonb_build_object(
     'id', p_id, 
     'id_customer', p_id_customer, 
+    'id_invoice', p_id_invoice, 
     'id_product', p_id_product, 
     'id_subscription_plan', p_id_subscription_plan, 
     'id_schedule_rule', p_id_schedule_rule, 
     'id_rt_service_status', p_id_rt_service_status, 
-    'quantity', p_quantity, 
     'service_date', p_service_date, 
-    'price_at_order', p_price_at_order, 
-    'invoice_id', p_invoice_id, 
     'metadata', p_metadata, 
     'updated_at', p_updated_at, 
     'updated_by', p_updated_by
@@ -64,14 +60,12 @@ BEGIN
 
   UPDATE norpac_commons.service_order SET
     id_customer = p_id_customer, 
+    id_invoice = p_id_invoice, 
     id_product = p_id_product, 
     id_subscription_plan = p_id_subscription_plan, 
     id_schedule_rule = p_id_schedule_rule, 
     id_rt_service_status = p_id_rt_service_status, 
-    quantity = p_quantity, 
     service_date = p_service_date, 
-    price_at_order = p_price_at_order, 
-    invoice_id = p_invoice_id, 
     metadata = p_metadata, 
     updated_by = p_updated_by, 
     updated_at = CURRENT_TIMESTAMP

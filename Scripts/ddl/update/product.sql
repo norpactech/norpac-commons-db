@@ -4,9 +4,9 @@
 DROP FUNCTION IF EXISTS norpac_commons.u_product;
 CREATE FUNCTION norpac_commons.u_product(
   IN p_id UUID, 
+  IN p_id_product_category UUID, 
   IN p_id_rt_product_type UUID, 
   IN p_id_rt_product_status UUID, 
-  IN p_id_rt_product_category UUID, 
   IN p_name VARCHAR, 
   IN p_code VARCHAR, 
   IN p_description TEXT, 
@@ -41,9 +41,9 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'id', p_id, 
+    'id_product_category', p_id_product_category, 
     'id_rt_product_type', p_id_rt_product_type, 
     'id_rt_product_status', p_id_rt_product_status, 
-    'id_rt_product_category', p_id_rt_product_category, 
     'name', p_name, 
     'code', p_code, 
     'description', p_description, 
@@ -80,9 +80,9 @@ BEGIN
   -- ------------------------------------------------------
 
   UPDATE norpac_commons.product SET
+    id_product_category = p_id_product_category, 
     id_rt_product_type = p_id_rt_product_type, 
     id_rt_product_status = p_id_rt_product_status, 
-    id_rt_product_category = p_id_rt_product_category, 
     name = p_name, 
     code = p_code, 
     description = p_description, 

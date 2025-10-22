@@ -30,6 +30,7 @@ psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing.sql" || g
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing_schedule_mapping.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing_tier.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_category.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_feature_mapping.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_service_details.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "rt_type.sql" || goto exception  

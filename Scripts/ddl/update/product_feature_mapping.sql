@@ -8,7 +8,7 @@ CREATE FUNCTION norpac_commons.u_product_feature_mapping(
   IN p_id_feature UUID, 
   IN p_included BOOLEAN, 
   IN p_addon_price DECIMAL, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
 )

@@ -4,10 +4,10 @@
 DROP FUNCTION IF EXISTS norpac_commons.u_tenant;
 CREATE FUNCTION norpac_commons.u_tenant(
   IN p_id UUID, 
+  IN p_id_rt_origin UUID, 
   IN p_name VARCHAR, 
   IN p_description TEXT, 
   IN p_origin VARCHAR, 
-  IN p_origin_name VARCHAR, 
   IN p_alias VARCHAR, 
   IN p_time_zone VARCHAR, 
   IN p_updated_at TIMESTAMP, 
@@ -40,10 +40,10 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'id', p_id, 
+    'id_rt_origin', p_id_rt_origin, 
     'name', p_name, 
     'description', p_description, 
     'origin', p_origin, 
-    'origin_name', p_origin_name, 
     'alias', p_alias, 
     'time_zone', p_time_zone, 
     'updated_at', p_updated_at, 
@@ -78,10 +78,10 @@ BEGIN
   -- ------------------------------------------------------
 
   UPDATE norpac_commons.tenant SET
+    id_rt_origin = p_id_rt_origin, 
     name = p_name, 
     description = p_description, 
     origin = p_origin, 
-    origin_name = p_origin_name, 
     alias = p_alias, 
     time_zone = p_time_zone, 
     updated_by = p_updated_by, 

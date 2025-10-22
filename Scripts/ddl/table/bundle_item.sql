@@ -9,7 +9,7 @@ CREATE TABLE norpac_commons.bundle_item (
   id_child_product                 UUID             NOT NULL, 
   sequence                         INTEGER          NOT NULL, 
   quantity                         INTEGER          NOT NULL, 
-  optional                         BOOLEAN          NULL        DEFAULT FALSE, 
+  optional                         BOOLEAN          NOT NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 

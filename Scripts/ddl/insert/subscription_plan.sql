@@ -12,7 +12,7 @@ CREATE FUNCTION norpac_commons.i_subscription_plan(
   IN p_base_price DECIMAL, 
   IN p_trial_period_days INTEGER, 
   IN p_recurrence_rule TEXT, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp

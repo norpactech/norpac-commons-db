@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS norpac_commons.product CASCADE;
 CREATE TABLE norpac_commons.product (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_tenant                        UUID             NOT NULL, 
+  id_product_category              UUID             NOT NULL, 
   id_rt_product_type               UUID             NOT NULL, 
   id_rt_product_status             UUID             NOT NULL, 
-  id_rt_product_category           UUID             NOT NULL, 
   name                             VARCHAR(64)      NOT NULL    CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
   code                             VARCHAR(64)      NOT NULL, 
   description                      TEXT             NULL, 
@@ -32,6 +32,12 @@ ALTER TABLE norpac_commons.product
   ON DELETE CASCADE;
     
 ALTER TABLE norpac_commons.product
+  ADD CONSTRAINT product_id_product_category
+  FOREIGN KEY (id_product_category)
+  REFERENCES norpac_commons.product_category(id)
+  ON DELETE CASCADE;
+    
+ALTER TABLE norpac_commons.product
   ADD CONSTRAINT product_id_rt_product_type
   FOREIGN KEY (id_rt_product_type)
   REFERENCES norpac_commons.rt_values(id)
@@ -40,12 +46,6 @@ ALTER TABLE norpac_commons.product
 ALTER TABLE norpac_commons.product
   ADD CONSTRAINT product_id_rt_product_status
   FOREIGN KEY (id_rt_product_status)
-  REFERENCES norpac_commons.rt_values(id)
-  ON DELETE CASCADE;
-    
-ALTER TABLE norpac_commons.product
-  ADD CONSTRAINT product_id_rt_product_category
-  FOREIGN KEY (id_rt_product_category)
   REFERENCES norpac_commons.rt_values(id)
   ON DELETE CASCADE;
 

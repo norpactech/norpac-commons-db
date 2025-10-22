@@ -7,12 +7,12 @@ CREATE TABLE norpac_commons.coupon (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_tenant                        UUID             NOT NULL, 
   id_rt_coupon_type                UUID             NOT NULL, 
-  name                             VARCHAR(64)      NULL        CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
+  name                             VARCHAR(64)      NOT NULL    CHECK (name ~ '^[A-Za-z0-9_][A-Za-z0-9\s\-,\.&''()*_:]{0,30}[A-Za-z0-9_]$'), 
   code                             VARCHAR(64)      NOT NULL, 
   description                      TEXT             NULL, 
   amount                           DECIMAL(10, 2)   NOT NULL, 
   max_uses                         INTEGER          NULL, 
-  max_uses_per_customer            INTEGER          NULL        DEFAULT 1, 
+  max_uses_per_customer            INTEGER          NOT NULL, 
   valid_from                       TIMESTAMP        NULL, 
   valid_to                         TIMESTAMP        NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -29,9 +29,6 @@ CREATE INDEX coupon_idx_coupon_active_dates
     
 CREATE INDEX coupon_idx_coupon_tenant
     ON norpac_commons.coupon(id_tenant);
-    
-CREATE UNIQUE INDEX coupon_uk_coupon_tenant_code
-    ON norpac_commons.coupon(id_tenant, LOWER(code));
 
 ALTER TABLE norpac_commons.coupon
   ADD CONSTRAINT coupon_id_tenant

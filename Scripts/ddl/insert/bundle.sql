@@ -7,7 +7,7 @@ CREATE FUNCTION norpac_commons.i_bundle(
   IN p_id_tenant UUID, 
   IN p_id_rt_bundle_strategy UUID, 
   IN p_discount_percent DECIMAL, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp

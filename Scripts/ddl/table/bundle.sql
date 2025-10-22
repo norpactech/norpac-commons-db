@@ -8,7 +8,7 @@ CREATE TABLE norpac_commons.bundle (
   id_tenant                        UUID             NOT NULL, 
   id_rt_bundle_strategy            UUID             NOT NULL, 
   discount_percent                 DECIMAL(5, 2)    NULL, 
-  metadata                         JSON             NULL, 
+  metadata                         TEXT             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 

@@ -7,15 +7,13 @@ CREATE TABLE norpac_commons.service_order (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_tenant                        UUID             NOT NULL, 
   id_customer                      UUID             NOT NULL, 
+  id_invoice                       UUID             NOT NULL, 
   id_product                       UUID             NOT NULL, 
   id_subscription_plan             UUID             NULL, 
   id_schedule_rule                 UUID             NULL, 
-  id_rt_service_status             UUID             NULL, 
-  quantity                         INTEGER          NULL        DEFAULT 1, 
-  service_date                     TIMESTAMP        NULL, 
-  price_at_order                   DECIMAL(10, 2)   NOT NULL, 
-  invoice_id                       UUID             NULL, 
-  metadata                         JSON             NULL, 
+  id_rt_service_status             UUID             NOT NULL, 
+  service_date                     DATE             NOT NULL, 
+  metadata                         TEXT             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -42,7 +40,7 @@ ALTER TABLE norpac_commons.service_order
   ADD CONSTRAINT service_order_id_rt_service_status
   FOREIGN KEY (id_rt_service_status)
   REFERENCES norpac_commons.rt_values(id)
-  ON DELETE SET NULL;
+  ON DELETE CASCADE;
 
 CREATE TRIGGER update_at
   BEFORE UPDATE ON norpac_commons.service_order 

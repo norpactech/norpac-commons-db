@@ -8,7 +8,7 @@ CREATE FUNCTION norpac_commons.i_feature(
   IN p_name VARCHAR, 
   IN p_description TEXT, 
   IN p_is_addon BOOLEAN, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp

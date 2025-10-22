@@ -11,9 +11,9 @@ CREATE FUNCTION norpac_commons.i_pricing(
   IN p_amount DECIMAL, 
   IN p_rate_per_unit DECIMAL, 
   IN p_minimum_charge DECIMAL, 
-  IN p_valid_from TIMESTAMP, 
-  IN p_valid_to TIMESTAMP, 
-  IN p_metadata JSON, 
+  IN p_valid_from DATE, 
+  IN p_valid_to DATE, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp

@@ -6,12 +6,13 @@ DROP FUNCTION IF EXISTS norpac_commons.i_schedule_rule;
 CREATE FUNCTION norpac_commons.i_schedule_rule(
   IN p_id_tenant UUID, 
   IN p_id_product UUID, 
-  IN p_schedule_name VARCHAR, 
-  IN p_start_date TIMESTAMP, 
+  IN p_name VARCHAR, 
+  IN p_description TEXT, 
+  IN p_start_date DATE, 
   IN p_recurrence_rule TEXT, 
   IN p_duration_minutes INTEGER, 
   IN p_timezone VARCHAR, 
-  IN p_metadata JSON, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp
@@ -38,7 +39,8 @@ BEGIN
   v_metadata := jsonb_build_object(
     'id_tenant', p_id_tenant, 
     'id_product', p_id_product, 
-    'schedule_name', p_schedule_name, 
+    'name', p_name, 
+    'description', p_description, 
     'start_date', p_start_date, 
     'recurrence_rule', p_recurrence_rule, 
     'duration_minutes', p_duration_minutes, 
@@ -48,13 +50,37 @@ BEGIN
   );
   
   -- ------------------------------------------------------
+  -- Validations
+  -- ------------------------------------------------------
+  
+  v_val_resp := is_name('name', p_name);
+  IF NOT v_val_resp.passed THEN
+    v_errors := v_errors || jsonb_build_object('type', 'validation', 'field', v_val_resp.field, 'message', v_val_resp.message);
+  END IF;
+
+  IF jsonb_array_length(v_errors) > 0 THEN
+    v_response := (
+      'ERROR', 
+      NULL, 
+      v_errors, 
+      '23514', 
+      'A CHECK constraint was violated due to incorrect input', 
+      'Ensure all fields in the ''errors'' array are correctly formatted', 
+      'The provided data did not pass validation checks'
+    );
+    CALL norpac_commons.i_logs(v_response.status, v_response.message, c_service_name, p_created_by, v_metadata);
+    RETURN v_response;
+  END IF;
+  
+  -- ------------------------------------------------------
   -- Persist
   -- ------------------------------------------------------
  
   INSERT INTO norpac_commons.schedule_rule (
     id_tenant, 
     id_product, 
-    schedule_name, 
+    name, 
+    description, 
     start_date, 
     recurrence_rule, 
     duration_minutes, 
@@ -66,7 +92,8 @@ BEGIN
   VALUES (
     p_id_tenant, 
     p_id_product, 
-    p_schedule_name, 
+    p_name, 
+    p_description, 
     p_start_date, 
     p_recurrence_rule, 
     p_duration_minutes, 

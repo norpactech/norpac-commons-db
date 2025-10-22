@@ -6,15 +6,13 @@ DROP FUNCTION IF EXISTS norpac_commons.i_service_order;
 CREATE FUNCTION norpac_commons.i_service_order(
   IN p_id_tenant UUID, 
   IN p_id_customer UUID, 
+  IN p_id_invoice UUID, 
   IN p_id_product UUID, 
   IN p_id_subscription_plan UUID, 
   IN p_id_schedule_rule UUID, 
   IN p_id_rt_service_status UUID, 
-  IN p_quantity INTEGER, 
-  IN p_service_date TIMESTAMP, 
-  IN p_price_at_order DECIMAL, 
-  IN p_invoice_id UUID, 
-  IN p_metadata JSON, 
+  IN p_service_date DATE, 
+  IN p_metadata TEXT, 
   IN p_created_by VARCHAR
 )
 RETURNS norpac_commons.pg_resp
@@ -41,14 +39,12 @@ BEGIN
   v_metadata := jsonb_build_object(
     'id_tenant', p_id_tenant, 
     'id_customer', p_id_customer, 
+    'id_invoice', p_id_invoice, 
     'id_product', p_id_product, 
     'id_subscription_plan', p_id_subscription_plan, 
     'id_schedule_rule', p_id_schedule_rule, 
     'id_rt_service_status', p_id_rt_service_status, 
-    'quantity', p_quantity, 
     'service_date', p_service_date, 
-    'price_at_order', p_price_at_order, 
-    'invoice_id', p_invoice_id, 
     'metadata', p_metadata, 
     'created_by', p_created_by
   );
@@ -60,14 +56,12 @@ BEGIN
   INSERT INTO norpac_commons.service_order (
     id_tenant, 
     id_customer, 
+    id_invoice, 
     id_product, 
     id_subscription_plan, 
     id_schedule_rule, 
     id_rt_service_status, 
-    quantity, 
     service_date, 
-    price_at_order, 
-    invoice_id, 
     metadata, 
     created_by,
     updated_by
@@ -75,14 +69,12 @@ BEGIN
   VALUES (
     p_id_tenant, 
     p_id_customer, 
+    p_id_invoice, 
     p_id_product, 
     p_id_subscription_plan, 
     p_id_schedule_rule, 
     p_id_rt_service_status, 
-    p_quantity, 
     p_service_date, 
-    p_price_at_order, 
-    p_invoice_id, 
     p_metadata, 
     p_created_by,
     p_created_by
