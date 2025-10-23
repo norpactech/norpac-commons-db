@@ -6,15 +6,16 @@ DROP TABLE IF EXISTS norpac_commons.customer CASCADE;
 CREATE TABLE norpac_commons.customer (
   id                               UUID             NOT NULL    DEFAULT GEN_RANDOM_UUID(), 
   id_tenant                        UUID             NOT NULL, 
+  id_physical_address              UUID             NOT NULL, 
+  id_billing_address               UUID             NOT NULL, 
   customer_id                      VARCHAR(32)      NULL, 
+  payment_id                       VARCHAR(32)      NULL, 
   business_name                    VARCHAR(64)      NULL, 
+  description                      TEXT             NULL, 
   first_name                       VARCHAR(64)      NOT NULL, 
   last_name                        VARCHAR(64)      NOT NULL, 
   email                            VARCHAR(255)     NOT NULL    CHECK (email ~ '^[A-Za-z0-9]+([._%+-][A-Za-z0-9]+)*@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'), 
   phone_number                     VARCHAR(16)      NULL, 
-  preferred_contact                VARCHAR(64)      NULL, 
-  date_of_birth                    DATE             NULL, 
-  description                      TEXT             NULL, 
   created_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
   created_by                       VARCHAR(32)      NOT NULL, 
   updated_at                       TIMESTAMP        NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
@@ -34,6 +35,18 @@ ALTER TABLE norpac_commons.customer
   ADD CONSTRAINT customer_id_tenant
   FOREIGN KEY (id_tenant)
   REFERENCES norpac_commons.tenant(id)
+  ON DELETE CASCADE;
+    
+ALTER TABLE norpac_commons.customer
+  ADD CONSTRAINT customer_id_physical_address
+  FOREIGN KEY (id_physical_address)
+  REFERENCES norpac_commons.address(id)
+  ON DELETE CASCADE;
+    
+ALTER TABLE norpac_commons.customer
+  ADD CONSTRAINT customer_id_billing_address
+  FOREIGN KEY (id_billing_address)
+  REFERENCES norpac_commons.address(id)
   ON DELETE CASCADE;
 
 CREATE TRIGGER update_at

@@ -4,15 +4,16 @@
 DROP FUNCTION IF EXISTS norpac_commons.u_customer;
 CREATE FUNCTION norpac_commons.u_customer(
   IN p_id UUID, 
+  IN p_id_physical_address UUID, 
+  IN p_id_billing_address UUID, 
   IN p_customer_id VARCHAR, 
+  IN p_payment_id VARCHAR, 
   IN p_business_name VARCHAR, 
+  IN p_description TEXT, 
   IN p_first_name VARCHAR, 
   IN p_last_name VARCHAR, 
   IN p_email VARCHAR, 
   IN p_phone_number VARCHAR, 
-  IN p_preferred_contact VARCHAR, 
-  IN p_date_of_birth DATE, 
-  IN p_description TEXT, 
   IN p_updated_at TIMESTAMP, 
   IN p_updated_by VARCHAR
 )
@@ -43,15 +44,16 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'id', p_id, 
+    'id_physical_address', p_id_physical_address, 
+    'id_billing_address', p_id_billing_address, 
     'customer_id', p_customer_id, 
+    'payment_id', p_payment_id, 
     'business_name', p_business_name, 
+    'description', p_description, 
     'first_name', p_first_name, 
     'last_name', p_last_name, 
     'email', p_email, 
     'phone_number', p_phone_number, 
-    'preferred_contact', p_preferred_contact, 
-    'date_of_birth', p_date_of_birth, 
-    'description', p_description, 
     'updated_at', p_updated_at, 
     'updated_by', p_updated_by
   );
@@ -84,15 +86,16 @@ BEGIN
   -- ------------------------------------------------------
 
   UPDATE norpac_commons.customer SET
+    id_physical_address = p_id_physical_address, 
+    id_billing_address = p_id_billing_address, 
     customer_id = p_customer_id, 
+    payment_id = p_payment_id, 
     business_name = p_business_name, 
+    description = p_description, 
     first_name = p_first_name, 
     last_name = p_last_name, 
     email = p_email, 
     phone_number = p_phone_number, 
-    preferred_contact = p_preferred_contact, 
-    date_of_birth = p_date_of_birth, 
-    description = p_description, 
     updated_by = p_updated_by, 
     updated_at = CURRENT_TIMESTAMP
     WHERE id = p_id
