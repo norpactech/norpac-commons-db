@@ -4,7 +4,6 @@
 DROP FUNCTION IF EXISTS norpac_commons.u_rt_values;
 CREATE FUNCTION norpac_commons.u_rt_values(
   IN p_id UUID, 
-  IN p_id_rt_type UUID, 
   IN p_sequence INTEGER, 
   IN p_name VARCHAR, 
   IN p_description TEXT, 
@@ -39,7 +38,6 @@ BEGIN
 
   v_metadata := jsonb_build_object(
     'id', p_id, 
-    'id_rt_type', p_id_rt_type, 
     'sequence', p_sequence, 
     'name', p_name, 
     'description', p_description, 
@@ -76,7 +74,6 @@ BEGIN
   -- ------------------------------------------------------
 
   UPDATE norpac_commons.rt_values SET
-    id_rt_type = p_id_rt_type, 
     sequence = p_sequence, 
     name = p_name, 
     description = p_description, 

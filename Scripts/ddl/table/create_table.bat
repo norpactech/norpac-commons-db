@@ -26,8 +26,8 @@ psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "feature.sql" || g
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_category.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "rt_type.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "bundle.sql" || goto exception  
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "tenant_user.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "user_role.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "tenant_user.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "rt_values.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "region.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "address.sql" || goto exception  
@@ -38,18 +38,18 @@ psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "region_polygon.sq
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "region_postal_code.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "address_region.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "customer.sql" || goto exception  
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "bundle_item.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "bundle_item.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_feature_mapping.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "product_service_details.sql" || goto exception  
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "schedule_rule.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "service_order.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "subscription_plan.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "schedule_rule.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "coupon_product.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "customer_phone.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing_tier.sql" || goto exception  
-psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing_schedule_mapping.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "coupon_usage.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "pricing_schedule_mapping.sql" || goto exception  
 
 echo Completed Create Tables Successfully
 exit /b 0
