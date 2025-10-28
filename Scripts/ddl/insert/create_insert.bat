@@ -46,6 +46,7 @@ psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "schedule_rule.sql
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "service_order.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "subscription_plan.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "tenant.sql" || goto exception  
+psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "tenant_origin.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "tenant_user.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "user.sql" || goto exception  
 psql -d norpac -v ON_ERROR_STOP=ON -h %PGHOST% -p %PGPORT% -f "user_phone.sql" || goto exception  
