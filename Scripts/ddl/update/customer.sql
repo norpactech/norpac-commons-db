@@ -62,7 +62,7 @@ BEGIN
   -- Validations
   -- ------------------------------------------------------
   
-  v_val_resp := is_email('email', p_email);
+  v_val_resp := norpac_commons.is_email('email', p_email);
   IF NOT v_val_resp.passed THEN
     v_errors := v_errors || jsonb_build_object('type', 'validation', 'field', v_val_resp.field, 'message', v_val_resp.message);
   END IF;
