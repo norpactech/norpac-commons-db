@@ -23,10 +23,10 @@ CREATE UNIQUE INDEX tenant_alt_key
     ON norpac_commons.tenant(LOWER(name), id_tenant_origin);
     
 CREATE UNIQUE INDEX tenant_tenant_idx01
-    ON norpac_commons.tenant(LOWER(alias));
+    ON norpac_commons.tenant(LOWER(alias), id_tenant_origin);
     
 CREATE UNIQUE INDEX tenant_tenant_idx02
-    ON norpac_commons.tenant(LOWER(name));
+    ON norpac_commons.tenant(LOWER(name), id_tenant_origin);
 
 ALTER TABLE norpac_commons.tenant
   ADD CONSTRAINT tenant_id_tenant_origin
