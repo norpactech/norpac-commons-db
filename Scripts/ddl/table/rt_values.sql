@@ -20,8 +20,8 @@ CREATE TABLE norpac_commons.rt_values (
 
 ALTER TABLE norpac_commons.rt_values ADD PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX rt_values_rt_values_idx01
-    ON norpac_commons.rt_values(LOWER(name), id_tenant);
+CREATE UNIQUE INDEX rt_values_alt_key
+    ON norpac_commons.rt_values(LOWER(name), id_tenant, id_rt_type);
 
 ALTER TABLE norpac_commons.rt_values
   ADD CONSTRAINT rt_values_id_tenant
